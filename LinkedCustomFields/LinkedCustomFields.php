@@ -26,6 +26,8 @@ class LinkedCustomFieldsPlugin extends MantisPlugin {
  			"MantisCore" => "2.0.0"
         );
 
+        $this->page = 'configure_custom_field_links';
+
         $this->author = "Robert Munteanu";
         $this->contact = "robert@lmn.ro";
         $this->url ="http://www.mantisbt.org/wiki/doku.php/mantisbt:linkedcustomfields";
@@ -33,16 +35,10 @@ class LinkedCustomFieldsPlugin extends MantisPlugin {
     
     public function hooks() {
         return array(
-            'EVENT_MENU_MANAGE' => 'manage_custom_field_links',
             'EVENT_LAYOUT_RESOURCES' => 'resources',
         );
     }
-    
-    public function manage_custom_field_links( $p_is_admin ) {
-        
-        return array( '<a href="' . plugin_page( 'configure_custom_field_links' ) . '">' . plugin_lang_get( 'configure_custom_field_links' ) . '</a>', );
 
-    }
     
     function resources( $p_event ) {
 
@@ -61,6 +57,13 @@ class LinkedCustomFieldsPlugin extends MantisPlugin {
         if ( $t_bug_id != -1 ) {
             $resources .= '<script type="text/javascript" src="' . plugin_page( 'bug_page_custom_field_links.php' ) . '&amp;bug_id='. $t_bug_id .'&amp;m_id='.$t_m_id.'"></script>';
         }
+
+
+        // todo only add at config page
+        if(basename($_SERVER['SCRIPT_NAME']) == 'plugin.php') {
+            $resources .= '<script type="text/javascript" src="'.plugin_file('js/linked_custom_fields.js').'"></script>';
+        }
+        
 
         return $resources;
 

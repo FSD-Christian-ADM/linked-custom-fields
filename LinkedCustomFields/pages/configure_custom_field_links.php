@@ -32,16 +32,25 @@
 						 get_enum_element( 'custom_field_type', CUSTOM_FIELD_TYPE_MULTILIST ) ;
 	
 ?>
-    <br />
-    <table class="width50" align="center">
-        <thead>
-            <tr class="row-category">
-                <th><?php echo plugin_lang_get('custom_field') ?></th>
-                <th><?php echo plugin_lang_get('linked_to') ?></th>
-                <th><?php echo sprintf(plugin_lang_get('unsupported_field_type'), $t_supported_types); ?></th>
-            </tr>
-        </thead>
-        <tbody>
+
+	<div class="widget-box widget-color-blue2">
+
+		<div class="widget-header widget-header-small">
+			<h4 class="widget-title lighter"> <?php echo plugin_lang_get( 'title' ); ?> </h4>
+		</div>
+
+		<div class="widget-body">
+			<div class="widget-main no-padding">
+				<table class="table table-bordered table-condensed table-striped">
+
+					<thead>
+						<tr class="row-category">
+							<th><?php echo plugin_lang_get('custom_field') ?></th>
+							<th><?php echo plugin_lang_get('linked_to') ?></th>
+							<th><?php echo sprintf(plugin_lang_get('unsupported_field_type'), $t_supported_types); ?></th>
+						</tr>
+					</thead>
+					<tbody>
     
 <?php 
 	foreach ( $t_custom_fields as $t_custom_field ) {
@@ -65,8 +74,14 @@
 	    } 
 	}
 ?>
-        </tbody>
-    </table>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+
+
 <?php
 
 	layout_page_end();
