@@ -20,8 +20,12 @@
 	auth_reauthenticate();
 	
 	access_ensure_global_level( config_get( 'manage_custom_fields_threshold' ) );
-	
-	html_page_top( plugin_lang_get( 'configure_custom_field_links' ) );
+
+
+	layout_page_header( plugin_lang_get( 'title' ) );
+	layout_page_begin( 'manage_overview_page.php' );
+	print_manage_menu( plugin_page( 'configure_custom_fields_links.php', 'LinkedCustomFields') );
+
 
 	$t_custom_fields = custom_field_get_ids();
 	$t_supported_types = get_enum_element( 'custom_field_type', CUSTOM_FIELD_TYPE_ENUM ) . ', ' . 
@@ -50,7 +54,7 @@
 		    $t_linked_field_id = LinkedCustomFieldsDao::getLinkedFieldId( $t_custom_field );
 		    if ( $t_linked_field_id ) {
 	            $t_linked_field = custom_field_get_definition( $t_linked_field_id );
-	            echo '<td>' . $t_linked_field['name'] .'</td>';	        
+	            echo '<td>' . $t_linked_field['name'] .'</td>';
 		    } else {
 		        echo '<td> None </td>';
 		    }
@@ -64,6 +68,6 @@
         </tbody>
     </table>
 <?php
-	
-	html_page_bottom();
+
+	layout_page_end();
 ?>

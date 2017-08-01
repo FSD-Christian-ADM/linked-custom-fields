@@ -21,10 +21,9 @@ class LinkedCustomFieldsPlugin extends MantisPlugin {
         $this->name = plugin_lang_get("title");
         $this->description = plugin_lang_get("description");
 
-        $this->version = "1.0.1";
+        $this->version = "1.0.2";
         $this->requires = array(
- 			"MantisCore" => "1.2.6",
- 			"jQuery" => "1.8"
+ 			"MantisCore" => "2.0.0"
         );
 
         $this->author = "Robert Munteanu";
@@ -42,18 +41,29 @@ class LinkedCustomFieldsPlugin extends MantisPlugin {
     public function manage_custom_field_links( $p_is_admin ) {
         
         return array( '<a href="' . plugin_page( 'configure_custom_field_links' ) . '">' . plugin_lang_get( 'configure_custom_field_links' ) . '</a>', );
+
     }
     
     function resources( $p_event ) {
+
+        $resources = "";
         
         $t_bug_id = gpc_get_int('bug_id', -1);
         $t_m_id = gpc_get_int('m_id', 0);
         if ( $t_bug_id == -1 && basename($_SERVER['SCRIPT_NAME']) == 'bug_report_page.php' ) {
             $t_bug_id = 0;
         }
-        if ( $t_bug_id != -1 ) {
-            return '<script type="text/javascript" src="' . plugin_page( 'bug_page_custom_field_links.php' ) . '&amp;bug_id='. $t_bug_id .'&amp;m_id='.$t_m_id.'"></script>';
+/*
+        if(basename($_SERVER['SCRIPT_NAME']) == 'plugin.php' && isset($_GET["page"]) && $_GET["page"] == "LinkedCustomFields/configure_custom_field_link.php") {
+            $resources .= '<script type="text/javascript" src="'.plugin_page('linked_custom_fields.js').'"></script>';
         }
+*/
+        if ( $t_bug_id != -1 ) {
+            $resources .= '<script type="text/javascript" src="' . plugin_page( 'bug_page_custom_field_links.php' ) . '&amp;bug_id='. $t_bug_id .'&amp;m_id='.$t_m_id.'"></script>';
+        }
+
+        return $resources;
+
     }    
     
     public function init() {

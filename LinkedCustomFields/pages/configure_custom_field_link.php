@@ -15,11 +15,19 @@
 # along with Linked custom fields plugin for MantisBT.
 # If not, see <http://www.gnu.org/licenses/>.
 
+    #header ("Content-Type: text/javascript");
+
 	require_once( 'core.php' );
 
+    // TODO make path dynamic somehow
+    require_js("../plugins/LinkedCustomFields/files/linked_custom_fields.js.php");
+
 	access_ensure_global_level( config_get( 'manage_custom_fields_threshold' ) );
-	
-	html_page_top( plugin_lang_get( 'configure_custom_field_links' ) );
+
+    layout_page_header( plugin_lang_get( 'title' ) );
+    layout_page_begin( 'manage_overview_page.php' );
+    print_manage_menu( 'manage_plugin_page.php' );
+
 
 	$f_custom_field = custom_field_get_definition( gpc_get_int('custom_field_id') );
 	$t_linked_custom_field_id = LinkedCustomFieldsDao::getLinkedFieldId( $f_custom_field['id'] );
@@ -39,7 +47,6 @@
     
 ?>
 
-
 <form method="post" action="<?php echo plugin_page('configure_custom_field_link_update.php') ?>">
 <?php echo form_security_field( 'configure_custom_field_link' ) ?>
 <br />
@@ -47,8 +54,8 @@
 <table class="width50" align="center">
     <tbody>
         <tr <?php echo helper_alternate_class() ?>>
-            <td><?php echo plugin_lang_get('custom_field') ?></td>
-            <td><?php echo $f_custom_field['name'] ?></td>
+            <td><?php echo plugin_lang_get('custom_field') ?>: </td>
+            <td style="padding-left: 7px; font-weight:bold;"><?php echo $f_custom_field['name'] ?></td>
         </tr>
         <tr <?php echo helper_alternate_class() ?>>
             <td><?php echo plugin_lang_get('linked_to') ?></td>
@@ -99,54 +106,9 @@
         </tbody>
 </table>
 </form>
-<script type="text/javascript">
-var targetValues = {};
-<?php 
-    foreach ( $t_target_candidates as $t_target_candidate ) {
-        
-        $t_field_values_js = JavascriptUtils::toJSArray( explode( '|', $t_target_candidate['possible_values'] ) );
-        echo 'targetValues["' . $t_target_candidate['id'] .'"] = '.$t_field_values_js." ;\n";
-    }
-?>
 
-var refreshTargetFieldOptions = function(targetFieldId) {
-    var sourceValues = targetValues[jQuery("#custom_field_id").val()];
-    var targetDisplayValues = targetValues[targetFieldId];
+<?php
 
-    var i = 0 ;
-    for ( field in sourceValues ) {
-	    var sourceValue = sourceValues[field];
-	    var control = jQuery('#custom_field_linked_values_' + i);
-	    i++;
-	    
-	    control.empty();
-	    for ( field in targetDisplayValues ) {
-		    var displayValue = targetDisplayValues[field];
-	    	control.append(jQuery('<option></option>', {
-		    	value: displayValue,
-				text: displayValue
-			}));
-	    }
-	}
-}
-jQuery(document).ready(function() {
+    layout_page_end();
 
-	refreshTargetFieldOptions(jQuery('#target_custom_field').val());
-	
-    jQuery('#target_custom_field').change(function() {
-    	refreshTargetFieldOptions(jQuery(this).val());
-    });
-    <?php 
-        $t_existing_values = LinkedCustomFieldsDao::getLinkedValuesMap( $f_custom_field['id'] );
-        foreach ( $t_existing_values as $t_idx => $t_values ) {
-
-            list( $t_key, $t_value) = $t_values;
-            echo 'jQuery("#custom_field_linked_values_'.$t_idx.'").val('. JavascriptUtils::toJSArray( $t_value ). ')'."\n";
-            $t_idx++;
-        }
-    ?>
-});
-</script>
-<?php 
-	html_page_bottom();
 ?>
