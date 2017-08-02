@@ -114,7 +114,7 @@ var refreshLinkedValues = function(fieldId, fieldValue) {
         var targetValue = targetValues[i];
         targetFieldRef.append(jQuery('<option/>').
             attr('value', targetValue).
-            text(targetValue));
+            html(targetValue));
     }
     
     targetFieldRef.val(savedValues[targetFieldId]);
@@ -132,6 +132,11 @@ jQuery(document).ready(function() {
         
         customFieldRef.change(function() {
             refreshLinkedValues(jQuery(this).data('fieldId'), jQuery(this).val());
+
+			// update options of target select, if chosen-plugin is available
+			// see https://harvesthq.github.io/chosen/
+			$("select#custom_field_"+bindings[boundKey]).trigger("chosen:updated");
+
         });
     }
 });
