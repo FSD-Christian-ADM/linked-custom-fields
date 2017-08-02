@@ -59,8 +59,12 @@ class LinkedCustomFieldsPlugin extends MantisPlugin {
         }
 
 
-        // todo only add at config page
-        if(basename($_SERVER['SCRIPT_NAME']) == 'plugin.php') {
+        if ( basename($_SERVER['SCRIPT_NAME']) == 'view_all_bug_page.php' ) {
+            $resources .= '<script type="text/javascript" src="' . plugin_page( 'view_all_bug_page_custom_field_links.php' ) . '"></script>';
+        }
+
+
+        if ( basename($_SERVER['SCRIPT_NAME']) == 'plugin.php' ) {
             $resources .= '<script type="text/javascript" src="'.plugin_file('js/linked_custom_fields.js').'"></script>';
         }
         
