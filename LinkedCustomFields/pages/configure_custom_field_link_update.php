@@ -37,6 +37,7 @@
 	        $t_source_value = $t_source_field_values[ $t_source_value_index ];
 	        $t_linked_value = gpc_get( $f_post_key );
             $t_value_mappings[$t_source_value] = $t_linked_value;
+
 	    }
 	}
 
@@ -49,4 +50,5 @@
     	LinkedCustomFieldsDao::replaceValues( $f_source_field_id, $f_target_field_id , $t_value_mappings);
         header("Location: " . plugin_page('configure_custom_field_links.php'));
 	}
+
 ?>

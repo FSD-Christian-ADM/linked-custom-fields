@@ -49,11 +49,8 @@ class LinkedCustomFieldsPlugin extends MantisPlugin {
         if ( $t_bug_id == -1 && basename($_SERVER['SCRIPT_NAME']) == 'bug_report_page.php' ) {
             $t_bug_id = 0;
         }
-/*
-        if(basename($_SERVER['SCRIPT_NAME']) == 'plugin.php' && isset($_GET["page"]) && $_GET["page"] == "LinkedCustomFields/configure_custom_field_link.php") {
-            $resources .= '<script type="text/javascript" src="'.plugin_page('linked_custom_fields.js').'"></script>';
-        }
-*/
+
+
         if ( $t_bug_id != -1 ) {
             $resources .= '<script type="text/javascript" src="' . plugin_page( 'bug_page_custom_field_links.php' ) . '&amp;bug_id='. $t_bug_id .'&amp;m_id='.$t_m_id.'"></script>';
         }

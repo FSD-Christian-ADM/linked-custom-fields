@@ -18,10 +18,12 @@ if ( $t_bug_id == 0 ) {
 $t_all_custom_field_ids = custom_field_get_linked_ids( $t_project_id );
 
 ?>
-var linkedFieldValues = {};
-var allFieldValues = {};
-var bindings = {};
-var savedValues = {};
+
+    var linkedFieldValues = {};
+    var allFieldValues = {};
+    var bindings = {};
+    var savedValues = {};
+
 <?php
 
 foreach ( $t_all_custom_field_ids as $t_custom_field_id ) {

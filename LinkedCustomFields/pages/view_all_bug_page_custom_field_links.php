@@ -71,7 +71,9 @@ var LinkedCustomFieldsUtil = {
 		var fieldRef = jQuery("[name^='custom_field_" + fieldId  + "']");
 
 		return fieldRef;
+
 	}
+
 };
 
 var refreshLinkedValues = function(fieldId, fieldValue) {
@@ -91,21 +93,16 @@ var refreshLinkedValues = function(fieldId, fieldValue) {
 		targetValues = LinkedCustomFieldsUtil.removeDuplicates(targetValues);
 
 	} else {
-
 		targetValues = linkedFieldValues[fieldId][fieldValue];
-
 	}
 
 
 
 	if ( ! targetValues || targetValues.length == 0 ) {
-
 		targetValues = allFieldValues[fieldId] ;
-
 	}
 
 	var targetFieldId = bindings[fieldId];
-
 
 	var targetFieldRef = LinkedCustomFieldsUtil.findCustomFieldByFieldId ( targetFieldId );
 
@@ -133,8 +130,6 @@ jQuery(document).ready(function() {
 		// The node to be monitored
 		var target = $("td#custom_field_"+boundKey+"_filter_target")[0];
 
-		// TODO don't observe when there is a select in target
-
 		// Create an observer instance
 		var observer = new MutationObserver(function( mutations ) {
 			mutations.forEach(function( mutation ) {
@@ -146,24 +141,19 @@ jQuery(document).ready(function() {
 					var nodeDOM = node.get(0);
 					// skip the loading-text (it's a span) and wait for the added select
 					if(nodeDOM.tagName == "SELECT") {
+
 						// add event listener for linked custom fields
 
 						var applicable = linkedFieldValues[boundKey];
 
 						var customFieldRef = LinkedCustomFieldsUtil.findCustomFieldByFieldId( boundKey );
-						//var customFieldRef = node;
 
 						customFieldRef.data('fieldId', boundKey);
 
 						refreshLinkedValues(boundKey, customFieldRef.val());
 
 						customFieldRef.change(function() {
-
 							refreshLinkedValues(customFieldRef.data('fieldId'), customFieldRef.val());
-
-							// update options of target select, if chosen-plugin is available
-							// see https://harvesthq.github.io/chosen/
-							// $("select#custom_field_"+bindings[boundKey]).trigger("chosen:updated");
 
 						});
 					}
@@ -184,8 +174,6 @@ jQuery(document).ready(function() {
 
 	// Later, you can stop observing
 	//observer.disconnect();
-
-
 
 
 	}

@@ -52,7 +52,8 @@
 					</thead>
 					<tbody>
     
-<?php 
+<?php
+
 	foreach ( $t_custom_fields as $t_custom_field ) {
 	    $t_custom_field_def = custom_field_get_definition( $t_custom_field );
 	    if ( $t_custom_field_def['type'] == CUSTOM_FIELD_TYPE_ENUM || 
@@ -85,4 +86,5 @@
 <?php
 
 	layout_page_end();
+
 ?>

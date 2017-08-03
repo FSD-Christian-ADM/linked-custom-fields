@@ -15,8 +15,6 @@
 # along with Linked custom fields plugin for MantisBT.
 # If not, see <http://www.gnu.org/licenses/>.
 
-    #header ("Content-Type: text/javascript");
-
 	require_once( 'core.php' );
 
 
@@ -124,7 +122,8 @@
                                 <td> <?php echo $t_possible_value ?></td>
                                 <td><select id="custom_field_linked_values_<?php echo $t_idx?>"
                                             name="custom_field_linked_values_<?php echo $t_idx?>[]"
-                                            multiple="multiple">
+                                            multiple="multiple"
+                                            style="width: 300px;">
                                         <?php
 
                                             foreach($t_target_candidates as $t_target_candidate) {
