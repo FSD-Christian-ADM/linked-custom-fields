@@ -40,12 +40,12 @@
 
 			echo 'savedValues["' . $t_linked_field_id .'"] = ' . JavascriptUtils::toJSArray( $t_saved_values ).";\n";
 			echo 'bindings["' . $t_custom_field_id.'"] = "'. $t_linked_field_id.'";'."\n";
-			echo 'allFieldValues["' .$t_custom_field_id.'"] = ' . JavascriptUtils::toJSArray( explode('|', $t_linked_field['possible_values']) ).";\n";
+			echo 'allFieldValues["' .$t_custom_field_id.'"] = ' . JavascriptUtils::toJSArray( explode('|', $t_linked_field['possible_values']), false ).";\n";
 			echo 'linkedFieldValues["'.$t_custom_field_id."\"] = {};\n";
 
 			foreach ( $t_linked_values as $t_linked_value_arr ) {
 				list($t_source_value, $t_target_values ) = $t_linked_value_arr;
-				echo 'linkedFieldValues["'.$t_custom_field_id.'"]["'. $t_source_value.'"] = ' . JavascriptUtils::toJSArray( $t_target_values ).";\n";
+				echo 'linkedFieldValues["'.$t_custom_field_id.'"]["'. $t_source_value.'"] = ' . JavascriptUtils::toJSArray( $t_target_values, false ).";\n";
 			}
 		}
 	}
