@@ -58,7 +58,7 @@ foreach ( $t_all_custom_field_ids as $t_custom_field_id ) {
 
         foreach ( $t_linked_values as $t_linked_value_arr ) {
             list($t_source_value, $t_target_values ) = $t_linked_value_arr;
-            echo 'linkedFieldValues["'.$t_custom_field_id.'"]["'. $t_source_value.'"] = test_' . JavascriptUtils::toJSArray( $t_target_values, false ).";\n";
+            echo 'linkedFieldValues["'.$t_custom_field_id.'"]["'. $t_source_value.'"] = ' . JavascriptUtils::toJSArray( $t_target_values, false ).";\n";
         }
     }
 }
