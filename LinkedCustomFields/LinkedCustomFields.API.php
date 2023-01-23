@@ -83,10 +83,19 @@ class JavascriptUtils {
         $t_field_values_js = '[ ';
 
         foreach (  $p_array as $t_custom_field_value ) {
+
+
+            // if there is a quote character in the string then it will cause JS problems. fix around this is to change the used quotes dependig on the string's content. still breaks, when both versions of the quotes are used in the string
+            $quote_character = "'";
+
+            if(FALSE !== strpos($t_custom_field_value, "'")) {
+                $quote_character = '"';
+            }
+
             if(true === $encode_html_entities) {
-                $t_field_values_js .= '"'.string_attribute($t_custom_field_value).'" ,';
+                $t_field_values_js .= $quote_character.string_attribute($t_custom_field_value).$quote_character.' ,';
             } else {
-                $t_field_values_js .= '"'.($t_custom_field_value).'" ,';
+                $t_field_values_js .= $quote_character.($t_custom_field_value).$quote_character.' ,';
             }
         }
 
